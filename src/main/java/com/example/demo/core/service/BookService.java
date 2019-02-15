@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface BookService {
 
     public Book createBook(String name, String author) throws Exception;

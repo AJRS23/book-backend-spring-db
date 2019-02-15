@@ -7,11 +7,13 @@ import com.example.demo.support.exceptions.BookAlreadyExistsException;
 import com.example.demo.support.exceptions.BookNameFieldRequiredException;
 import com.example.demo.support.exceptions.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class BookServiceImpl implements BookService {
 
     @Autowired
@@ -35,7 +37,6 @@ public class BookServiceImpl implements BookService {
         //book.setId(UUID.randomUUID().toString());
         book.setName(name);
         book.setAuthor(author);
-        //book = this.bookDao.createBook(book);
         book = this.iBookDao.save(book);
         Book newBook = new Book(book);
         return newBook;
@@ -57,12 +58,12 @@ public class BookServiceImpl implements BookService {
         }
         book.setName(name);
         book.setAuthor(author);
-        //book = this.bookDao.updateBook(book);
         book = this.iBookDao.save(book);
         Book newBook = new Book(book);
         return newBook;
     }
 
+    @Transactional
     @Override
     public List<Book> getBooks() {
         //List<Book> books = this.bookDao.getBooks();
@@ -72,6 +73,7 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public Book getBook(int id) throws Exception {
         //Book book = this.bookDao.getBookById(id);
@@ -83,6 +85,7 @@ public class BookServiceImpl implements BookService {
         return newBook;
     }
 
+    @Transactional
     @Override
     public void deleteBook(int id) throws Exception {
         //List<Book> books = this.bookDao.getBooks();
